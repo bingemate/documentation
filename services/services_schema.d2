@@ -1,0 +1,85 @@
+title: |md
+  # Binge Mate Services
+| {near: top-center}
+
+kubernetes_cluster: Kubernetes Cluster {
+  icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
+
+  system: System WorkSpace {
+    kubesphere: KubeSphere Stack {
+      icon: https://avatars.githubusercontent.com/u/37326490
+      shape: image
+    }
+
+    service_mesh: Service Mesh {
+      istio: Istio Stack {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Istio-bluelogo-nobackground-unframed.svg/1365px-Istio-bluelogo-nobackground-unframed.svg.png
+        shape: image
+      }
+
+      jarger_tracing: Jaeger Tracing Stack {
+        icon: https://cncf-branding.netlify.app/img/projects/jaeger/icon/color/jaeger-icon-color.png
+        shape: image
+      }
+    }
+
+    devops: DevOps {
+      jenkins: Jenkins Stack {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/1200px-Jenkins_logo.svg.png
+        shape: image
+      }
+
+      argocd: ArgoCD Stack {
+        icon: https://cncf-branding.netlify.app/img/projects/argo/icon/color/argo-icon-color.png
+        shape: image
+      }
+    }
+
+    monitoring: Monitoring {
+      prometheus: Prometheus Operator {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/1200px-Prometheus_software_logo.svg.png
+        shape: image
+      }
+      kube_state_metrics: Kube State Metrics {
+        icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
+        shape: image
+      }
+      node_exporter: Node Exporter {
+        icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
+        shape: image
+      }
+      alertmanager: Alert Manager {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/1200px-Prometheus_software_logo.svg.png
+        shape: image
+      }
+    }
+  }
+
+  bingemate_workspace: Binge Mate WorkSpace {
+    style.fill: "#ff2d0d"
+
+    icon: https://www.freepnglogos.com/uploads/coffee-logo-png/coffee-logo-design-creative-idea-logo-elements-2.png
+
+    title: "Le workspace existe\nmais pas le contenu encore\nC'est juste pour simuler"
+
+    prod: Production Platform {
+      bingemate_db
+
+      bingemate_api
+
+      bingemate_web
+
+      bingemate_api -> bingemate_db
+    }
+
+    dev: Development Platform {
+      bingemate_db
+
+      bingemate_api
+
+      bingemate_web
+
+      bingemate_api -> bingemate_db
+    }
+  }
+}

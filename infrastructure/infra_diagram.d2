@@ -1,0 +1,49 @@
+title: |md
+  # Binge Mate Infrastructure
+| { near: top-center }
+
+internet: Internet {
+  icon: https://icons.terrastruct.com/essentials%2F140-internet.svg
+  shape: image
+}
+
+proxmox_server: Proxmox Server {
+  icon: https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/proxmox-256.png
+
+  pfsense: Pfsense {
+    icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FNetworking%2FCloud%20Load%20Balancing.svg
+  }
+
+  kubernetes_cluster: Kubernetes Cluster {
+    icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
+    style.double-border: true
+
+    master1: Master node 1 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+    master2: Master node 2 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+    master3: Master node 3 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+    node1: Worker node 1 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+    node2: Worker node 2 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+  }
+
+  pfsense -> kubernetes_cluster.master1
+  pfsense -> kubernetes_cluster.master2
+  pfsense -> kubernetes_cluster.master3
+
+  nfs_server: NFS Server {
+    icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FStorage%2FCloud%20Storage.svg
+  }
+
+  kubernetes_cluster -> nfs_server: Storage class
+}
+
+internet -> proxmox_server.pfsense

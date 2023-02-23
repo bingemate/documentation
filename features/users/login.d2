@@ -1,0 +1,21 @@
+login: Login scenario {
+    shape: sequence_diagram
+    user: User {shape: person }
+    web_service: Web Service
+    auth_provider: Auth Provider
+    bdd: BDD {shape: cylinder }
+
+    user.login_step->web_service.login_step: Login
+    web_service."Je sais qu'on va pas faire comme ça,\nmais c'est pour l'exemple"
+    web_service.login_step->auth_provider: Ask for token
+    auth_provider->bdd: Check user
+    bdd->auth_provider: Return user
+    auth_provider->web_service.login_step: Return token
+    web_service.login_step->user.login_step: Return token
+
+    user.connected_step->web_service.retrieve_data: Ask for data
+    web_service.retrieve_data->bdd: Ask for data
+    bdd->web_service.retrieve_data: Return data
+    web_service.retrieve_data->user.connected_step: Return data
+}
+
