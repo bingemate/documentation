@@ -1,0 +1,65 @@
+title: |md
+  # Binge Mate Network
+| { near: top-center }
+
+direction: right
+
+user: End user {
+  icon: https://cdn4.iconfinder.com/data/icons/eon-ecommerce-i-1/32/user_profile_man-512.png
+  shape: image
+}
+
+internet: Internet {
+  icon: https://icons.terrastruct.com/essentials%2F140-internet.svg
+  shape: image
+}
+
+cloudflare: Cloudflare {
+  icon: https://companieslogo.com/img/orig/NET-6676335b.png?t=1647436387
+  shape: image
+}
+
+proxmox_server: Proxmox Server {
+  icon: https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/proxmox-256.png
+
+  pfsense: Pfsense {
+    icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FNetworking%2FCloud%20Load%20Balancing.svg
+    text: |txt
+      Only accepts traffic
+      from Cloudflare
+    |
+  }
+
+  kubernetes_cluster: Kubernetes Cluster {
+    icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
+    style.double-border: true
+
+    master1: Master node 1 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+    master2: Master node 2 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+    master3: Master node 3 {
+      icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCompute%20Engine.svg
+    }
+  }
+
+  pfsense -> kubernetes_cluster.master1
+  pfsense -> kubernetes_cluster.master2
+  pfsense -> kubernetes_cluster.master3
+}
+
+user -> internet 
+
+internet -> cloudflare: {
+  label: |md
+  SSL/TLS
+  |
+}
+
+cloudflare -> proxmox_server.pfsense: {
+  label: |md
+  Cloudflare Signed certificate
+  |
+}
