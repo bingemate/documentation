@@ -2,6 +2,7 @@ title: |md
   # Binge Mate Services
 | {near: top-center}
 
+
 user: Utilisateur {
   shape: image
   icon: https://icons.terrastruct.com/essentials%2F365-user.svg
@@ -16,17 +17,30 @@ admin: Administrateur {
 kubernetes_cluster: Kubernetes Cluster {
   icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
 
+  auth: Identity Access Management {
+    keycloak: Keycloak {
+      icon: https://upload.wikimedia.org/wikipedia/commons/2/29/Keycloak_Logo.png
+      shape: image
+    }
+
+    db: BDD {
+      shape: image
+      icon: https://cdn1.iconfinder.com/data/icons/soleicons-fill-vol-1/64/postgres_database_server_relational_dbms_sql-512.png
+    }
+    keycloak -> db
+  }
+
 
   api_manager: API Manager {
       icon: https://avatars.githubusercontent.com/u/12655666?s=200&v=4
     
     api_gateway: API Gateway {
-      shape: image
+      #shape: image
       icon: https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-4/32/gateway--api-512.png
     }
 
     admin_api: Admin API {
-      shape: image
+      #shape: image
       icon: https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-2/32/api-512.png
     }
 
@@ -57,6 +71,9 @@ kubernetes_cluster: Kubernetes Cluster {
     portail -> mongo
     console -> admin_api
   }
+
+  api_manager.api_gateway -> auth.keycloak
+  api_manager.admin_api -> auth.keycloak
 
 
   system: System WorkSpace {
@@ -168,6 +185,8 @@ admin -> kubernetes_cluster.api_manager.console
 admin -> kubernetes_cluster.system.rancher_console
 admin -> kubernetes_cluster.system.monitoring.grafana
 admin -> kubernetes_cluster.system.devops.argocd
+admin -> kubernetes_cluster.auth.keycloak
 
 user -> kubernetes_cluster.api_manager.portail
 user -> kubernetes_cluster.api_manager.api_gateway
+user -> kubernetes_cluster.auth.keycloak
