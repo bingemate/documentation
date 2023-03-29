@@ -1,0 +1,31 @@
+auth: Oauth Api Gateway {
+  shape: sequence_diagram
+
+  user: "User\n(Browser)"
+  api_gateway: "Gravitee\n(Api Gateway)"
+  keycloak: "Keycloak\n(Authentication server)"
+  backend: "Backend Service\n"
+
+
+
+  login_sequence: "Login" {
+    user.login -> keycloak.login: Login / Register
+    keycloak.login -> keycloak.login: Generate token\nand Refresh token
+    keycloak.login -> user.login: Return token
+    user -> user: Store token\nin local storage
+  }
+
+  apim_sequence: "API Management" {
+    user.apim -> api_gateway.apim: Request\n(Bearer token)
+    api_gateway."All the workflow\nprocess is logged"
+    api_gateway.apim -> keycloak.apim: Validate token
+    keycloak.apim -> api_gateway.apim: Return token info
+    api_gateway.apim -> keycloak.apim: Get user info
+    keycloak.apim -> api_gateway.apim: Return user info
+    api_gateway.apim -> api_gateway.apim: Check user\nroles and permissions
+    api_gateway.apim -> api_gateway.apim: Inject user id\nin request
+    api_gateway.apim -> backend.apim: Request
+    backend.apim -> api_gateway.apim: Response
+    api_gateway.apim -> user.apim: Response
+  }
+}
