@@ -1,0 +1,47 @@
+auth: Auth Scenarios {
+  shape: sequence_diagram
+
+  user: "User\n(Browser)"
+  keycloak_auth: "Keycloak\n(Authentication portal)"
+  keycloak: "Keycloak\n(Authentication server)"
+  db: "Database\n(Keycloak)" {
+    shape: cylinder
+  }
+
+  login_scenario: "Login scenario" {
+    user.login -> keycloak_auth.login: Login / Register
+    keycloak_auth."Auth SSO portal\nWhere user fill it's credentials"
+    keycloak_auth.login -> keycloak.login: Submit credentials
+    keycloak.login -> db: Check user
+    db -> keycloak.login: Return user
+    keycloak.login -> keycloak.login: Generate token\nand Refresh token
+    keycloak.login -> keycloak_auth.login: Return token
+    keycloak_auth.login -> user.login: Return token
+    user -> user: Store token\nin local storage
+  }
+
+  get_me_scenario: "Get user data scenario" {
+    user.get_me -> keycloak.get_me: Ask for user data
+    keycloak.get_me -> keycloak.get_me: Check token
+    keycloak.get_me -> db: Ask for user data
+    db -> keycloak.get_me: Return user data
+    keycloak.get_me -> user.get_me: Return user data
+  }
+
+  refresh_token_scenario: "Refresh token scenario" {
+    user.refresh_token -> keycloak.refresh_token: Ask for token refresh
+    keycloak.refresh_token -> keycloak.refresh_token: Check refresh token
+    keycloak.refresh_token -> keycloak.refresh_token: Generate token\nand Refresh token
+    keycloak.refresh_token -> user.refresh_token: Return token
+    user -> user: Store token\nin local storage
+  }
+
+  logout_scenario: "Logout scenario" {
+    user.logout -> keycloak.logout: Ask for logout
+    keycloak.logout -> keycloak.logout: Check token
+    keycloak.logout -> keycloak.logout: Delete token
+    keycloak.logout -> user.logout: Return success
+
+    user -> user: Delete token\nin local storage
+  }
+}
