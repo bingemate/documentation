@@ -13,6 +13,20 @@ admin: Administrateur {
   icon: https://cdn0.iconfinder.com/data/icons/business-startup-10/50/76-512.png
 }
 
+registry: Scaleway Registry {
+  icon: https://cdn.icon-icons.com/icons2/2407/PNG/512/scaleway_icon_146103.png
+  # shape: image
+}
+
+github: Github {
+  icon: https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-social-github-512.png
+  # shape: image
+}
+
+tmdb: TMDB API {
+  icon: https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg
+  # shape: image
+}
 
 kubernetes_cluster: Kubernetes Cluster {
   icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
@@ -30,17 +44,16 @@ kubernetes_cluster: Kubernetes Cluster {
     keycloak -> db
   }
 
+  api_manager: API Manager {  
+    icon: https://avatars.githubusercontent.com/u/12655666?s=200&v=4
 
-  api_manager: API Manager {
-      icon: https://avatars.githubusercontent.com/u/12655666?s=200&v=4
-    
     api_gateway: API Gateway {
-      #shape: image
+      # shape: image
       icon: https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-4/32/gateway--api-512.png
     }
 
     admin_api: Admin API {
-      #shape: image
+      # shape: image
       icon: https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-2/32/api-512.png
     }
 
@@ -75,7 +88,6 @@ kubernetes_cluster: Kubernetes Cluster {
   api_manager.api_gateway -> auth.keycloak
   api_manager.admin_api -> auth.keycloak
 
-
   system: System WorkSpace {
     rancher: Rancher Stack {
       icon: https://media.trustradius.com/product-logos/pJ/jl/0QRDLLI2NBM6.PNG
@@ -95,7 +107,6 @@ kubernetes_cluster: Kubernetes Cluster {
     }
 
     devops: DevOps {
-
       argocd: ArgoCD Stack {
         icon: https://cncf-branding.netlify.app/img/projects/argo/icon/color/argo-icon-color.png
         shape: image
@@ -107,7 +118,7 @@ kubernetes_cluster: Kubernetes Cluster {
         shape: image
         icon: https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/grafana-512.png
       }
-      
+
       prometheus: Prometheus Operator {
         icon: https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/1200px-Prometheus_software_logo.svg.png
         shape: image
@@ -127,12 +138,11 @@ kubernetes_cluster: Kubernetes Cluster {
       grafana -> prometheus
       kube_state_metrics -> prometheus
       node_exporter -> prometheus
-      grafana <- alertmanager  
+      grafana <- alertmanager
     }
   }
 
   bingemate_workspace: Binge Mate WorkSpace {
-
     icon: https://www.freepnglogos.com/uploads/coffee-logo-png/coffee-logo-design-creative-idea-logo-elements-2.png
 
     prod: Production Platform {
@@ -140,11 +150,13 @@ kubernetes_cluster: Kubernetes Cluster {
         shape: cylinder
       }
 
-      bingemate_api: Backend service
+      watch-service: Watch Service
+      media-indexer: Media Indexer
 
       bingemate_web: Frontend
 
-      bingemate_api -> bingemate_db
+      watch-service -> bingemate_db
+      media-indexer -> bingemate_db
     }
 
     dev: Development Platform {
@@ -152,39 +164,33 @@ kubernetes_cluster: Kubernetes Cluster {
         shape: cylinder
       }
 
-      bingemate_api: Backend service
+      watch-service: Watch Service
+      media-indexer: Media Indexer
 
       bingemate_web: Frontend
 
-      bingemate_api -> bingemate_db
+      watch-service -> bingemate_db
+      media-indexer -> bingemate_db
     }
   }
 
-  system.devops.argocd -> bingemate_workspace
-  system.service_mesh.istio -> bingemate_workspace
+  system.devops -> bingemate_workspace
 
-  api_manager.api_gateway -> bingemate_workspace.prod.bingemate_api
-  api_manager.api_gateway -> bingemate_workspace.dev.bingemate_api
-}
-
-registry: Scaleway Registry {
-  icon: https://cdn.icon-icons.com/icons2/2407/PNG/512/scaleway_icon_146103.png
-  #shape: image
-}
-
-github: Github {
-  icon: https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-social-github-512.png
-  #shape: image
+  api_manager.api_gateway -> bingemate_workspace.prod.watch-service
+  api_manager.api_gateway -> bingemate_workspace.prod.media-indexer
+  api_manager.api_gateway -> bingemate_workspace.dev.watch-service
+  api_manager.api_gateway -> bingemate_workspace.dev.media-indexer
 }
 
 kubernetes_cluster -> registry
-kubernetes_cluster.system.devops.argocd -> github
+kubernetes_cluster.system.devops -> github
+kubernetes_cluster.bingemate_workspace -> tmdb
 github -> registry
 
 admin -> kubernetes_cluster.api_manager.console
 admin -> kubernetes_cluster.system.rancher_console
 admin -> kubernetes_cluster.system.monitoring.grafana
-admin -> kubernetes_cluster.system.devops.argocd
+admin -> kubernetes_cluster.system.devops
 admin -> kubernetes_cluster.auth.keycloak
 
 user -> kubernetes_cluster.api_manager.portail
