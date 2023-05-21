@@ -2,6 +2,25 @@ title: |md
   # Binge Mate Services
 | {near: top-center}
 
+classes: {
+  dev link: {
+    style.stroke: "#30e81c"
+  }
+  prod link: {
+    style.stroke: "#4287f5"
+  }
+  user link: {
+    style.stroke: "#54bd44"
+  }
+  admin link: {
+    style.stroke: "#f54242"
+  }
+}
+
+cloudflare: Cloudflare {
+  icon: https://seeklogo.com/images/C/cloudflare-logo-6B7D159387-seeklogo.com.png
+  # shape: image
+}
 
 user: Utilisateur {
   shape: image
@@ -28,6 +47,11 @@ tmdb: TMDB API {
   # shape: image
 }
 
+stripe: Stripe {
+  icon: https://play-lh.googleusercontent.com/2PS6w7uBztfuMys5fgodNkTwTOE6bLVB2cJYbu5GHlARAK36FzO5bUfMDP9cEJk__cE
+  # shape: image
+}
+
 kubernetes_cluster: Kubernetes Cluster {
   icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
 
@@ -44,12 +68,26 @@ kubernetes_cluster: Kubernetes Cluster {
     keycloak -> db
   }
 
-  api_manager: API Manager {  
+  api_manager: API Manager {
     icon: https://avatars.githubusercontent.com/u/12655666?s=200&v=4
 
     api_gateway: API Gateway {
       # shape: image
       icon: https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-4/32/gateway--api-512.png
+
+      content: ""{
+        label: |md
+        - Authentication
+        - Authorization
+        - Rate Limiting
+        - Caching
+        - Logging
+        - Metrics
+        - Tracing
+        - Circuit Breaker
+        - Health Check
+        |
+      }
     }
 
     admin_api: Admin API {
@@ -146,53 +184,179 @@ kubernetes_cluster: Kubernetes Cluster {
     icon: https://www.freepnglogos.com/uploads/coffee-logo-png/coffee-logo-design-creative-idea-logo-elements-2.png
 
     prod: Production Platform {
-      bingemate_db: BDD {
+      watch-service: Watch Service {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
+      }
+
+      media-service: Media Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+
+      user-service: User Service {
+        icon: https://seeklogo.com/images/Q/quarkus-logo-C9F006782E-seeklogo.com.png
+      }
+
+      calendar-service: Calendar Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+
+      media-indexer: Media Indexer {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+
+        ffmpeg: "" {
+          shape: image
+          icon: https://seeklogo.com/images/F/ffmpeg-logo-188901058C-seeklogo.com.png
+        }
+      }
+      streaming-service: Streaming Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+
+      bingemate-web: Frontend {
+        icon: https://seeklogo.com/images/A/angular-logo-B76B1CDE98-seeklogo.com.png
+      }
+
+      bingemate-db: BDD {
+        icon: https://seeklogo.com/images/P/postgresql-logo-5309879B58-seeklogo.com.png
         shape: cylinder
       }
 
-      watch-service: Watch Service
-      media-indexer: Media Indexer
+      bingemate-storage: Storage {
+        shape: page
+        style.multiple: true
+      }
 
-      bingemate_web: Frontend
+      watch-service -> bingemate-db
+      media-indexer -> bingemate-db
+      media-service -> bingemate-db
+      user-service -> bingemate-db
+      calendar-service -> bingemate-db
 
-      watch-service -> bingemate_db
-      media-indexer -> bingemate_db
+      media-indexer -> bingemate-storage
+      streaming-service -> bingemate-storage
     }
 
     dev: Development Platform {
-      bingemate_db: BDD {
+      watch-service: Watch Service {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
+      }
+
+      media-service: Media Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+
+      user-service: User Service {
+        icon: https://seeklogo.com/images/Q/quarkus-logo-C9F006782E-seeklogo.com.png
+      }
+
+      calendar-service: Calendar Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+
+      media-indexer: Media Indexer {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+
+        ffmpeg: "" {
+          shape: image
+          icon: https://seeklogo.com/images/F/ffmpeg-logo-188901058C-seeklogo.com.png
+        }
+      }
+      streaming-service: Streaming Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+
+      bingemate-web: Frontend {
+        icon: https://seeklogo.com/images/A/angular-logo-B76B1CDE98-seeklogo.com.png
+      }
+
+      bingemate-db: BDD {
+        icon: https://seeklogo.com/images/P/postgresql-logo-5309879B58-seeklogo.com.png
         shape: cylinder
       }
 
-      watch-service: Watch Service
-      media-indexer: Media Indexer
+      bingemate-storage: Storage {
+        shape: page
+        style.multiple: true
+      }
 
-      bingemate_web: Frontend
+      watch-service -> bingemate-db
+      media-indexer -> bingemate-db
+      media-service -> bingemate-db
+      user-service -> bingemate-db
+      calendar-service -> bingemate-db
 
-      watch-service -> bingemate_db
-      media-indexer -> bingemate_db
+      media-indexer -> bingemate-storage
+      streaming-service -> bingemate-storage
     }
   }
 
-  system.devops -> bingemate_workspace
+  system.devops -> bingemate_workspace.prod: {
+    class: prod link
+  }
+  system.devops -> bingemate_workspace.dev: {
+    class: dev link
+  }
 
-  api_manager.api_gateway -> bingemate_workspace.prod.watch-service
-  api_manager.api_gateway -> bingemate_workspace.prod.media-indexer
-  api_manager.api_gateway -> bingemate_workspace.dev.watch-service
-  api_manager.api_gateway -> bingemate_workspace.dev.media-indexer
+  system.service_mesh -> bingemate_workspace.prod: {
+    class: prod link
+  }
+  system.service_mesh -> bingemate_workspace.dev: {
+    class: dev link
+  }
+
+  api_manager.api_gateway -> bingemate_workspace.prod: {
+    class: prod link
+  }
+  api_manager.api_gateway -> bingemate_workspace.dev: {
+    class: dev link
+  }
+
+  system.monitoring -> bingemate_workspace
+  # system.monitoring -> api_manager
 }
 
 kubernetes_cluster -> registry
 kubernetes_cluster.system.devops -> github
-kubernetes_cluster.bingemate_workspace -> tmdb
+kubernetes_cluster.bingemate_workspace.dev -> tmdb
+kubernetes_cluster.bingemate_workspace.prod -> tmdb
+kubernetes_cluster.bingemate_workspace.prod -> stripe
+kubernetes_cluster.bingemate_workspace.dev -> stripe
 github -> registry
 
-admin -> kubernetes_cluster.api_manager.console
-admin -> kubernetes_cluster.system.rancher_console
-admin -> kubernetes_cluster.system.monitoring.grafana
-admin -> kubernetes_cluster.system.devops
-admin -> kubernetes_cluster.auth.keycloak
+admin -> cloudflare: {
+  class: admin link
+}
+user -> cloudflare: {
+  class: user link
+}
 
-user -> kubernetes_cluster.api_manager.portail
-user -> kubernetes_cluster.api_manager.api_gateway
-user -> kubernetes_cluster.auth.keycloak
+cloudflare -> kubernetes_cluster.api_manager.console: {
+  class: admin link
+}
+cloudflare -> kubernetes_cluster.system.rancher_console: {
+  class: admin link
+}
+cloudflare -> kubernetes_cluster.system.monitoring.grafana: {
+  class: admin link
+}
+cloudflare -> kubernetes_cluster.system.devops: {
+  class: admin link
+}
+cloudflare -> kubernetes_cluster.auth.keycloak: {
+  class: admin link
+}
+
+
+cloudflare -> kubernetes_cluster.api_manager.portail: {
+  class: user link
+}
+cloudflare -> kubernetes_cluster.api_manager.api_gateway: {
+  class: user link
+}
+cloudflare -> kubernetes_cluster.auth.keycloak: {
+  class: user link
+}
+
+cloudflare -> kubernetes_cluster.bingemate_workspace.prod.bingemate-web
+
+cloudflare -> kubernetes_cluster.bingemate_workspace.dev.bingemate-web
