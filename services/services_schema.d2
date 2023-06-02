@@ -52,6 +52,10 @@ stripe: Stripe {
   # shape: image
 }
 
+snyk: Snyke {
+  icon: https://seeklogo.com/images/S/snyk-logo-77A649EC07-seeklogo.com.png?v=637937476260000000
+}
+
 kubernetes_cluster: Kubernetes Cluster {
   icon: https://icons.terrastruct.com/azure%2F_Companies%2FKubernetes.svg
 
@@ -184,7 +188,14 @@ kubernetes_cluster: Kubernetes Cluster {
     icon: https://www.freepnglogos.com/uploads/coffee-logo-png/coffee-logo-design-creative-idea-logo-elements-2.png
 
     prod: Production Platform {
+      keycloak-service: Keycloak Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
       watch-service: Watch Service {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
+      }
+
+      messaging-service: Messaging Service {
         icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
       }
 
@@ -199,6 +210,7 @@ kubernetes_cluster: Kubernetes Cluster {
       calendar-service: Calendar Service {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
       }
+
 
       media-indexer: Media Indexer {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
@@ -231,13 +243,21 @@ kubernetes_cluster: Kubernetes Cluster {
       media-service -> bingemate-db
       user-service -> bingemate-db
       calendar-service -> bingemate-db
+      messaging-service -> bingemate-db
 
       media-indexer -> bingemate-storage
       streaming-service -> bingemate-storage
     }
 
     dev: Development Platform {
+      keycloak-service: Keycloak Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
       watch-service: Watch Service {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
+      }
+
+      messaging-service: Messaging Service {
         icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
       }
 
@@ -274,6 +294,7 @@ kubernetes_cluster: Kubernetes Cluster {
         shape: cylinder
       }
 
+
       bingemate-storage: Storage {
         shape: page
         style.multiple: true
@@ -284,6 +305,7 @@ kubernetes_cluster: Kubernetes Cluster {
       media-service -> bingemate-db
       user-service -> bingemate-db
       calendar-service -> bingemate-db
+      messaging-service -> bingemate-db
 
       media-indexer -> bingemate-storage
       streaming-service -> bingemate-storage
@@ -313,6 +335,8 @@ kubernetes_cluster: Kubernetes Cluster {
 
   system.monitoring -> bingemate_workspace
   # system.monitoring -> api_manager
+  
+  bingemate_workspace -> auth.keycloak
 }
 
 kubernetes_cluster -> registry
@@ -360,3 +384,5 @@ cloudflare -> kubernetes_cluster.auth.keycloak: {
 cloudflare -> kubernetes_cluster.bingemate_workspace.prod.bingemate-web
 
 cloudflare -> kubernetes_cluster.bingemate_workspace.dev.bingemate-web
+
+github <- snyk
