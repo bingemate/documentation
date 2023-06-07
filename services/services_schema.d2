@@ -39,7 +39,12 @@ registry: Scaleway Registry {
 
 github: Github {
   icon: https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-social-github-512.png
-  # shape: image
+  github_action: Github Action {
+    icon: https://seeklogo.com/images/G/github-actions-logo-031704BDC6-seeklogo.com.png
+  }
+  dependabot: Dependabot {
+    icon: https://seeklogo.com/images/D/dependabot-logo-A0BA60FE2D-seeklogo.com.png
+  }
 }
 
 tmdb: TMDB API {
@@ -79,17 +84,17 @@ kubernetes_cluster: Kubernetes Cluster {
       # shape: image
       icon: https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-4/32/gateway--api-512.png
 
-      content: ""{
+      content: "" {
         label: |md
-        - Authentication
-        - Authorization
-        - Rate Limiting
-        - Caching
-        - Logging
-        - Metrics
-        - Tracing
-        - Circuit Breaker
-        - Health Check
+          - Authentication
+          - Authorization
+          - Rate Limiting
+          - Caching
+          - Logging
+          - Metrics
+          - Tracing
+          - Circuit Breaker
+          - Health Check
         |
       }
     }
@@ -127,8 +132,8 @@ kubernetes_cluster: Kubernetes Cluster {
     console -> admin_api
   }
 
-  api_manager.api_gateway -> auth.keycloak
-  api_manager.admin_api -> auth.keycloak
+  api_manager.api_gateway -> auth
+  api_manager.admin_api -> auth
 
   system: System WorkSpace {
     rancher: Rancher Stack {
@@ -191,6 +196,11 @@ kubernetes_cluster: Kubernetes Cluster {
       keycloak-service: Keycloak Service {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
       }
+
+      payment-service: Payment Service {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
+      }
+
       watch-service: Watch Service {
         icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
       }
@@ -210,7 +220,6 @@ kubernetes_cluster: Kubernetes Cluster {
       calendar-service: Calendar Service {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
       }
-
 
       media-indexer: Media Indexer {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
@@ -244,6 +253,8 @@ kubernetes_cluster: Kubernetes Cluster {
       user-service -> bingemate-db
       calendar-service -> bingemate-db
       messaging-service -> bingemate-db
+      payment-service -> bingemate-db
+      payment-service -> keycloak-service
 
       media-indexer -> bingemate-storage
       streaming-service -> bingemate-storage
@@ -253,6 +264,11 @@ kubernetes_cluster: Kubernetes Cluster {
       keycloak-service: Keycloak Service {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
       }
+
+      payment-service: Payment Service {
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
+      }
+
       watch-service: Watch Service {
         icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
       }
@@ -294,7 +310,6 @@ kubernetes_cluster: Kubernetes Cluster {
         shape: cylinder
       }
 
-
       bingemate-storage: Storage {
         shape: page
         style.multiple: true
@@ -306,6 +321,8 @@ kubernetes_cluster: Kubernetes Cluster {
       user-service -> bingemate-db
       calendar-service -> bingemate-db
       messaging-service -> bingemate-db
+      payment-service -> bingemate-db
+      payment-service -> keycloak-service
 
       media-indexer -> bingemate-storage
       streaming-service -> bingemate-storage
@@ -335,8 +352,8 @@ kubernetes_cluster: Kubernetes Cluster {
 
   system.monitoring -> bingemate_workspace
   # system.monitoring -> api_manager
-  
-  bingemate_workspace -> auth.keycloak
+
+  bingemate_workspace -> auth
 }
 
 kubernetes_cluster -> registry
@@ -366,10 +383,9 @@ cloudflare -> kubernetes_cluster.system.monitoring.grafana: {
 cloudflare -> kubernetes_cluster.system.devops: {
   class: admin link
 }
-cloudflare -> kubernetes_cluster.auth.keycloak: {
+cloudflare -> kubernetes_cluster.auth: {
   class: admin link
 }
-
 
 cloudflare -> kubernetes_cluster.api_manager.portail: {
   class: user link
@@ -377,7 +393,7 @@ cloudflare -> kubernetes_cluster.api_manager.portail: {
 cloudflare -> kubernetes_cluster.api_manager.api_gateway: {
   class: user link
 }
-cloudflare -> kubernetes_cluster.auth.keycloak: {
+cloudflare -> kubernetes_cluster.auth: {
   class: user link
 }
 
