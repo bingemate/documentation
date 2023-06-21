@@ -208,19 +208,19 @@ kubernetes_cluster: Kubernetes Cluster {
       messaging-service: Messaging Service {
         icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
       }
-
-      media-service: Media Service {
-        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
-      }
-
+      
       user-service: User Service {
         icon: https://seeklogo.com/images/Q/quarkus-logo-C9F006782E-seeklogo.com.png
       }
-
+      
       calendar-service: Calendar Service {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
       }
 
+      media-service: Media Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+      
       media-indexer: Media Indexer {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
 
@@ -237,9 +237,14 @@ kubernetes_cluster: Kubernetes Cluster {
         icon: https://seeklogo.com/images/A/angular-logo-B76B1CDE98-seeklogo.com.png
       }
 
+      
       bingemate-db: BDD {
         icon: https://seeklogo.com/images/P/postgresql-logo-5309879B58-seeklogo.com.png
         shape: cylinder
+      }
+      media-redis: Redis {
+        icon: https://cdn4.iconfinder.com/data/icons/redis-2/1451/Untitled-2-512.png
+        style.multiple: true
       }
 
       bingemate-storage: Storage {
@@ -254,6 +259,11 @@ kubernetes_cluster: Kubernetes Cluster {
       calendar-service -> bingemate-db
       messaging-service -> bingemate-db
       payment-service -> bingemate-db
+
+      media-service -> media-redis
+      media-indexer -> media-redis
+      calendar-service -> media-redis
+
       payment-service -> keycloak-service
 
       media-indexer -> bingemate-storage
@@ -276,19 +286,19 @@ kubernetes_cluster: Kubernetes Cluster {
       messaging-service: Messaging Service {
         icon: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png
       }
-
-      media-service: Media Service {
-        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
-      }
-
+      
       user-service: User Service {
         icon: https://seeklogo.com/images/Q/quarkus-logo-C9F006782E-seeklogo.com.png
       }
-
+      
       calendar-service: Calendar Service {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
       }
 
+      media-service: Media Service {
+        icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
+      }
+      
       media-indexer: Media Indexer {
         icon: https://seeklogo.com/images/G/go-logo-046185B647-seeklogo.com.png
 
@@ -305,11 +315,16 @@ kubernetes_cluster: Kubernetes Cluster {
         icon: https://seeklogo.com/images/A/angular-logo-B76B1CDE98-seeklogo.com.png
       }
 
+      
       bingemate-db: BDD {
         icon: https://seeklogo.com/images/P/postgresql-logo-5309879B58-seeklogo.com.png
         shape: cylinder
       }
-
+      
+      media-redis: Redis {
+        icon: https://cdn4.iconfinder.com/data/icons/redis-2/1451/Untitled-2-512.png
+        style.multiple: true
+      }
       bingemate-storage: Storage {
         shape: page
         style.multiple: true
@@ -322,6 +337,11 @@ kubernetes_cluster: Kubernetes Cluster {
       calendar-service -> bingemate-db
       messaging-service -> bingemate-db
       payment-service -> bingemate-db
+
+      media-service -> media-redis
+      media-indexer -> media-redis
+      calendar-service -> media-redis
+
       payment-service -> keycloak-service
 
       media-indexer -> bingemate-storage
