@@ -32,9 +32,16 @@ admin: Administrateur {
   icon: https://cdn0.iconfinder.com/data/icons/business-startup-10/50/76-512.png
 }
 
-registry: Scaleway Registry {
+scaleway: Scaleway {
   icon: https://cdn.icon-icons.com/icons2/2407/PNG/512/scaleway_icon_146103.png
-  # shape: image
+  object_storage: Object Storage {
+    icon: https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-8/32/volume--block-storage-256.png
+    # shape: image
+  }
+  registry: Registry {
+    icon: https://cdn4.iconfinder.com/data/icons/big-data/512/registry-256.png
+    # shape: image
+  }
 }
 
 github: Github {
@@ -376,7 +383,8 @@ kubernetes_cluster: Kubernetes Cluster {
   bingemate_workspace -> auth
 }
 
-kubernetes_cluster -> registry
+kubernetes_cluster.bingemate_workspace -> scaleway.object_storage
+kubernetes_cluster -> scaleway.registry
 kubernetes_cluster.system.devops -> github
 kubernetes_cluster.bingemate_workspace.dev -> tmdb
 kubernetes_cluster.bingemate_workspace.prod -> tmdb
