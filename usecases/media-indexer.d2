@@ -45,6 +45,10 @@ step_process_transcoding: Transcoding Step {
     icon: "https://seeklogo.com/images/F/ffmpeg-logo-302A0FAEB4-seeklogo.com.png"
   }
 
+  upload_dir: Upload Directory {
+    shape: page
+  }
+
   hls_dir: HLS Directory {
     shape: page
     content: |md
@@ -91,6 +95,10 @@ step_upload_to_s3: Upload Step {
     icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/science/rocket.png"
   }
 
+  hls_dir: HLS Directory {
+    shape: page
+  }
+
   s3: S3 {
     icon: "https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Storage__Content_Delivery_Amazon_S3_Bucket_with_Objects-256.png"
   }
@@ -120,4 +128,22 @@ step_cleanup: Cleanup Step {
   |
 }
 
+ffmpeg_command: FFmpeg Command {
+    code: |go
+    /usr/bin/ffmpeg -f concat -safe 0 -i /tmp/ffmpeg_list_1362368138.txt         
+    -map 0:v:0 -c:v copy -hls_time 15 -hls_playlist_type vod 
+    -hls_segment_filename /app/media-target/movies/1093994/segment_%03d.ts 
+    -hls_flags delete_segments -f hls 
+    /app/media-target/movies/1093994/index.m3u8
+
+    /usr/bin/ffmpeg -i /app/assets/intro.mkv 
+    -i /app/movies-source/One.Ranger.2023..mkv 
+    -filter_complex [0:a:0][1:1]concat=n=2:v=0:a=1[outa] 
+    -map [outa] -c:a aac -b:a 160k -ac 2 -hls_time 15 -hls_playlist_type vod 
+    -hls_segment_filename /app/media-target/movies/1093994/audio_1_%03d.ts 
+    /app/media-target/movies/1093994/audio_1.m3u8
+    |
+}
+
 step_scan -> step_process_metadata -> step_process_transcoding -> step_upload_to_s3 -> step_cleanup -> step_index_in_db
+step_process_transcoding -> ffmpeg_command
