@@ -42,11 +42,26 @@ d2 --layout=dagre -t 101 oauth_api_gateway.d2 oauth_api_gateway.png
 
 > Live reload of transcode sequence diagram
 ```bash
-d2 --layout=dagre -t 101 media-indexer.d2 -w media-indexer.png
+d2 --layout=elk -t 101 media-indexer.d2 -w media-indexer.png
 ```
 > Generate the transcode sequence diagram
 ```bash
-d2 --layout=dagre -t 101 media-indexer.d2 media-indexer.png
+d2 --layout=elk -t 101 media-indexer.d2 media-indexer.png
 ```
 
 ![Media Indexer](media-indexer.png)
+
+## Streaming
+
+### Stream
+
+> Live reload of stream sequence diagram
+```bash
+d2 --layout=elk -t 101 streaming.d2 -w streaming.png
+```
+> Generate the stream sequence diagram
+```bash
+d2 --layout=dagre -t 101 streaming.d2 streaming.png
+```
+
+![Streaming](streaming.png)

@@ -1,0 +1,62 @@
+direction: right
+title: |md
+  # Media Streaming
+| {near: top-center}
+
+direction: right
+
+browser: Browser {
+  video_player: VideoPlayer {
+    icon: "https://cdn3.iconfinder.com/data/icons/glypho-free/64/video-player-256.png"
+  }
+
+  video_buffer: Video Buffer / Muxer {
+    shape: document
+  }
+}
+
+media-service: Media Service {
+  icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/computer/music.png"
+}
+
+s3: S3 {
+  icon: "https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Storage__Content_Delivery_Amazon_S3_Bucket_with_Objects-256.png"
+  content: |md
+    - 124533/audio_1.m3u8
+    - ...
+    - 124533/video.m3u8
+    - video_001.ts
+    - ...
+    - subtitle_1.vtt
+    - subtitle_2.vtt
+    - ...
+  |
+}
+
+browser.video_player <- media-service: {
+  label: |md
+    - Getting media file info
+    - Retrieve soundtracks and substracks
+  |
+}
+
+browser.video_player <- s3: {
+  label: |md
+    Retrieve hls playlists
+    - audio_1.m3u8
+    - video.m3u8
+    - ...
+  |
+}
+
+browser.video_buffer <- s3: {
+  label: |md
+    Retrieve media segments
+    - video_001.ts
+    - ...
+    - audio_001.ts
+    - ...
+    - subtitle_1.vtt
+    - ...
+  |
+}
