@@ -1,0 +1,123 @@
+title: |md
+   # Indexing Media Files
+| {near: top-center}
+
+direction: right
+
+step_scan: Scanning Step {
+  media_indexer: Media Indexer {
+    icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/fairy-tale/sage.png"
+  }
+
+  upload_dir: Upload Directory {
+    shape: page
+  }
+
+  step: |md
+    - Scan for new files
+    - Check if is a media file
+    -...
+  |
+}
+
+step_process_metadata: Metadata Step {
+  media_indexer: Media Indexer {
+    icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/projects/with-C-book.png"
+  }
+
+  tmdb: TMDB API {
+    icon: "https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg"
+  }
+
+  step: |md
+    - Sanitize filename
+    - Fetch metadata from TMDB
+    -...
+  |
+}
+
+step_process_transcoding: Transcoding Step {
+  media_indexer: Media Indexer {
+    icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/science/power-to-the-masses.png"
+  }
+
+  ffmpeg: FFmpeg {
+    icon: "https://seeklogo.com/images/F/ffmpeg-logo-302A0FAEB4-seeklogo.com.png"
+  }
+
+  hls_dir: HLS Directory {
+    shape: page
+    content: |md
+      - audio_1.m3u8
+      - audio_1_001.ts
+      - ...
+      - audio_x_xxx.ts
+      - video.m3u8
+      - video_001.ts
+      - ...
+      - video_xxx.ts
+      - subtitle_1.vtt
+      - subtitle_2.vtt
+      - ...
+    |
+  }
+
+  step: |md
+    - Analyze media file
+    - Ajust transcode settings
+    - Transcode media file to HLS
+    -...
+  |
+}
+
+step_index_in_db: Indexing Step {
+  media_indexer: Media Indexer {
+    icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/science/scientist.png"
+  }
+
+  db: Database {
+    icon: "https://seeklogo.com/images/P/postgresql-logo-5309879B58-seeklogo.com.png"
+  }
+
+  step: |md
+    - Add metadata to database
+    - Set media file as available
+    - ...
+  |
+}
+
+step_upload_to_s3: Upload Step {
+  media_indexer: Media Indexer {
+    icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/science/rocket.png"
+  }
+
+  s3: S3 {
+    icon: "https://cdn2.iconfinder.com/data/icons/amazon-aws-stencils/100/Storage__Content_Delivery_Amazon_S3_Bucket_with_Objects-256.png"
+  }
+
+  step: |md
+    - Upload HLS files to S3
+    - Upload metadata to S3
+    -...
+  |
+}
+
+step_cleanup: Cleanup Step {
+  media_indexer: Media Indexer {
+    icon: "https://github.com/egonelbre/gophers/raw/master/.thumb/vector/computer/gamer.png"
+  }
+  upload_dir: Upload Directory {
+    shape: page
+  }
+  hls_dir: HLS Directory {
+    shape: page
+  }
+
+  step: |md
+    - Remove media file
+    - Remove HLS files
+    -...
+  |
+}
+
+step_scan -> step_process_metadata -> step_process_transcoding -> step_upload_to_s3 -> step_cleanup -> step_index_in_db

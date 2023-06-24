@@ -35,3 +35,18 @@ d2 --layout=dagre -t 101 oauth_api_gateway.d2 oauth_api_gateway.png
 ```
 
 ![Oauth Api Gateway](oauth_api_gateway.png)
+
+## Media Indexer
+
+### Transcode
+
+> Live reload of transcode sequence diagram
+```bash
+d2 --layout=dagre -t 101 media-indexer.d2 -w media-indexer.png
+```
+> Generate the transcode sequence diagram
+```bash
+d2 --layout=dagre -t 101 media-indexer.d2 media-indexer.png
+```
+
+![Media Indexer](media-indexer.png)
