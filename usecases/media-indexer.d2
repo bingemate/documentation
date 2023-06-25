@@ -131,11 +131,15 @@ step_cleanup: Cleanup Step {
 
 ffmpeg_command: FFmpeg Command {
     code: |go
-    /usr/bin/ffmpeg -f concat -safe 0 -i /tmp/ffmpeg_list_1362368138.txt         
-    -map 0:v:0 -c:v copy -hls_time 15 -hls_playlist_type vod 
-    -hls_segment_filename /app/media-target/movies/1093994/segment_%03d.ts 
-    -hls_flags delete_segments -f hls 
-    /app/media-target/movies/1093994/index.m3u8
+    /usr/bin/ffmpeg -i /home/nospy/Projets/bingemate/media-indexer/assets/intro.mkv                          
+    -i /home/nospy/Téléchargements/movies-source/Star Wars - Episode IV - A New Hope - 1977.mkv 
+    -filter_complex [0:v:0]scale=1280:720,format=yuv420p,setsar=sar=1/1[v0]; 
+    [1:v:0]scale=1280:720,format=yuv420p,setsar=sar=1/1[v1]; 
+    [v0][v1]concat=n=2:v=1[outv] -map [outv] 
+    -c:v libx264 -profile:v high -preset veryfast -crf 23 -pix_fmt yuv420p 
+    -hls_time 15 -hls_playlist_type vod -hls_segment_filename 
+    /home/nospy/Téléchargements/media-target/123456/segment_%03d.ts -hls_flags delete_segments 
+    -f hls /home/nospy/Téléchargements/media-target/123456/index.m3u8
 
     /usr/bin/ffmpeg -i /app/assets/intro.mkv 
     -i /app/movies-source/One.Ranger.2023..mkv 
