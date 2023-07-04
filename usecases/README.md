@@ -65,3 +65,13 @@ d2 --layout=dagre -t 101 streaming.d2 streaming.png
 ```
 
 ![Streaming](streaming.png)
+
+### Streaming socket
+
+![Streaming Socket](Diagramme_sans_nom.drawio_2.png)
+
+## Payment
+
+### Subscription
+
+![Subscription](payment-service.drawio.png)
